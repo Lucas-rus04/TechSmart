@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSmart</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<header>
+    <h1 class="logo">TechSmart</h1>
+
+    <form id="search-form">
+        <label for="search-input">Cerca prodotti</label>
+        <input type="search" id="search-input" placeholder="Cerca un prodotto...">
+        <button type="submit">Cerca</button>
+    </form>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Carrello</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="categories">
+        <h1>Categorie</h1>
+
+        <div id="category-filters">
+            <button type="button" data-category="all">Tutti</button>
+            <button type="button" data-category="PC">PC</button>
+            <button type="button" data-category="Smartphone">Smartphone</button>
+            <button type="button" data-category="Tablet">Tablet</button>
+            <button type="button" data-category="Monitor">Monitor</button>
+            <button type="button" data-category="Accessori">Accessori</button>
+        </div>
+    </section>
+
+    <section id="products">
+        <h2>Catalogo prodotti</h2>
+        <p>Scopri i nostri prodotti tecnologici.</p>
+
+        <div id="loading-message" class="status" hidden>
+            Caricamento prodotti...
+        </div>
+
+        <div id="error-message" class="status error" hidden>
+            Errore durante il caricamento dei prodotti.
+        </div>
+
+        <div id="empty-message" class="status" hidden>
+            Nessun prodotto trovato.
+        </div>
+
+        <div id="products-container"></div>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 TechSmart</p>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>
