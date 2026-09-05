@@ -33,10 +33,9 @@ const products = [
 ];
 
 const productsContainer = document.getElementById("products-container");
-
-// Aggiunta della lista dei prodotti
 const categoryButtons = document.querySelectorAll("#category-filters button");
 
+// Mostra i prodotti nella pagina
 function displayProducts(productsToDisplay) {
     productsContainer.innerHTML = "";
 
@@ -56,4 +55,23 @@ function displayProducts(productsToDisplay) {
     });
 }
 
+// Aggiunta dei pulsanti per filtrare i prodotti
+categoryButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const category = button.dataset.category;
+
+        categoryButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        if (category === "all") {
+            displayProducts(products);
+        } else {
+            const filteredProducts = products.filter(
+                product => product.category === category
+            );
+
+            displayProducts(filteredProducts);
+        }
+    });
+});
 displayProducts(products);
