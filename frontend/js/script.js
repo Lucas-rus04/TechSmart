@@ -34,10 +34,22 @@ const products = [
 
 const productsContainer = document.getElementById("products-container");
 const categoryButtons = document.querySelectorAll("#category-filters button");
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("search-input");
+const emptyMessage = document.getElementById("empty-message");
+
+let selectedCategory = "all";
 
 // Mostra i prodotti nella pagina
 function displayProducts(productsToDisplay) {
     productsContainer.innerHTML = "";
+    // Inserimento messaggio di errore se non ci sono prodotti da visualizzare
+    if (productsToDisplay.length === 0) {
+        emptyMessage.hidden = false;
+        return;
+    }
+
+    emptyMessage.hidden = true;
 
     productsToDisplay.forEach(product => {
         const card = document.createElement("div");
@@ -55,23 +67,44 @@ function displayProducts(productsToDisplay) {
     });
 }
 
-// Aggiunta dei pulsanti per filtrare i prodotti
+// Funzionalità della barra di ricerca
+function filterProducts() {
+    const search = searchInput.value.toLowerCase().trim();
+
+    const filteredProducts = products.filter(product => {
+        const categoryMatch =
+            selectedCategory === "all" ||
+            product.category === selectedCategory;
+
+        const searchMatch =
+            product.name.toLowerCase().includes(search);
+
+        return categoryMatch && searchMatch;
+    });
+
+    displayProducts(filteredProducts);
+}
+
+// Click sui bottoni per filtrare i prodotti
 categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
-        const category = button.dataset.category;
+        selectedCategory = button.dataset.category;
 
-        categoryButtons.forEach(btn => btn.classList.remove("active"));
+        categoryButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
         button.classList.add("active");
 
-        if (category === "all") {
-            displayProducts(products);
-        } else {
-            const filteredProducts = products.filter(
-                product => product.category === category
-            );
-
-            displayProducts(filteredProducts);
-        }
+        filterProducts();
     });
 });
+
+
+searchForm.addEventListener("submit", event => {
+    event.preventDefault();
+    filterProducts();
+});
+
+
 displayProducts(products);
